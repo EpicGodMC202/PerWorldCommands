@@ -1,0 +1,31 @@
+pluginPrefix: "&5&lPerWorldCommands &7// &c"
+messages:
+  cmdAdded: "The Command %cmd% was successfully added to config"
+  worldAdded: "The World %world% was successfully added to %cmd%"
+  denied: "You can`t run this command in this world!."
+  worldAlreadyExists: "The world %world% already exists!."
+  cmdAlreadyExists: "The Command %cmd% already exists."
+  cmdNotFound: "The Command %cmd% could not be found."
+  tooManyArgs: "Too many arguments."
+  noPermission: "You don't have permission to run this command."
+  cmdNotRecognized: "SubCommand could not be found."
+  error: "An unexpected error has occurred contact dev"
+  notEnoughArgs: "Not enough arguments!."
+  reloaded: "Reload Complete!"
+  usage:
+    - '&6&n---------------------------------'
+    - ''
+    - '&6/pwc addCmd <command> &8- &7Add a command to the configuration'
+    - '&6/pwc addWorld <command> <world> &8-&7Add a world to a commands whitelist'
+    - ''
+    - '&6&n---------------------------------'
+
+commands:
+  compass:
+    onlyCheckCmdName: true
+    allowedWorlds:
+      - world
+      - Spawn
+      - Survival
+      - Survival_the_nether
+      - Survival_the_end

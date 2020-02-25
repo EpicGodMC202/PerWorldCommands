@@ -1,0 +1,8 @@
+main: me.epicgodmc.perworldcommands.PerWorldCommands
+version: 1.0.0
+name: PerWorldCommands
+author: EpicGodMC
+commands:
+  perworldcommands:
+    usage: /<command>
+    aliases: [pwc]
