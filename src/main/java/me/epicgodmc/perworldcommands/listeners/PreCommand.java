@@ -28,16 +28,25 @@ public class PreCommand implements Listener {
 
         if (!allowedWorlds.contains(playerWorld)) {
             if (plugin.getConfig().getBoolean("commands." + cmdName + ".onlyCheckCmdName")) {
-                if (commandList.contains(cmdName)) {
+                if (containsCmd(commandList, cmd)) {
                     event.setCancelled(true);
                     sender.sendMessage(plugin.mm.getMessage("denied"));
                 }
 
-            } else if (commandList.contains(cmd)) {
+            } else if (containsCmd(commandList, cmd)) {
                 event.setCancelled(true);
                 sender.sendMessage(plugin.mm.getMessage("denied"));
             }
         }
+    }
+
+    public boolean containsCmd(Set<String> list, String cmd)
+    {
+        for (String str : list)
+        {
+            if (str.equalsIgnoreCase(cmd)) return true;
+        }
+        return false;
     }
 
 }
