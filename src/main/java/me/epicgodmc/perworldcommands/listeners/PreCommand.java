@@ -16,28 +16,39 @@ public class PreCommand implements Listener {
 
     @EventHandler
     public void preCommand(PlayerCommandPreprocessEvent event) {
-
-
         Player sender = event.getPlayer();
         String cmd = event.getMessage().replaceFirst("/", "");
-        String cmdName = cmd.split(" ")[0];
-        List<String> allowedWorlds = plugin.getConfig().getStringList("commands." + cmdName + ".allowedWorlds");
-        String playerWorld = event.getPlayer().getWorld().getName();
 
+        if (isSet(cmd)) {
 
+            String cmdName = cmd.split(" ")[0];
+            List<String> allowedWorlds = plugin.getConfig().getStringList("commands." + cmdName + ".allowedWorlds");
+            String playerWorld = event.getPlayer().getWorld().getName();
 
-        if (!allowedWorlds.contains(playerWorld)) {
-            if (plugin.getConfig().getBoolean("commands." + cmdName + ".onlyCheckCmdName")) {
-                if (containsCmd(commandList, cmd)) {
+            if (allowedWorlds.isEmpty()) {
+                event.setCancelled(true);
+                sender.sendMessage(plugin.mm.getMessage("denied"));
+                return;
+            }
+
+            if (!allowedWorlds.contains(playerWorld)) {
+                if (plugin.getConfig().getBoolean("commands." + cmdName + ".onlyCheckCmdName")) {
+                    if (containsCmd(commandList, cmd)) {
+                        event.setCancelled(true);
+                        sender.sendMessage(plugin.mm.getMessage("denied"));
+                    }
+
+                } else if (containsCmd(commandList, cmd)) {
                     event.setCancelled(true);
                     sender.sendMessage(plugin.mm.getMessage("denied"));
                 }
-
-            } else if (containsCmd(commandList, cmd)) {
-                event.setCancelled(true);
-                sender.sendMessage(plugin.mm.getMessage("denied"));
             }
         }
+    }
+
+    public boolean isSet(String cmd)
+    {
+        return plugin.getConfig().isSet("commands."+cmd);
     }
 
     public boolean containsCmd(Set<String> list, String cmd)
